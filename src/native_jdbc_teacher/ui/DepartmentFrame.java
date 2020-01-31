@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.swing.BoxLayout;
@@ -108,7 +109,13 @@ public class DepartmentFrame extends JFrame implements ActionListener {
 			pList.addItem(newDept);
 			pDepartment.clearTf();
 		}catch(Exception e1) {
-			JOptionPane.showMessageDialog(null, "입력 확인");
+			SQLException e2 = (SQLException) e1;
+			if (e2.getErrorCode() == 1062) {
+				JOptionPane.showMessageDialog(null, "부서번호가 중복");
+				System.err.println(e2.getMessage());
+				return;
+			}
+			e1.printStackTrace();
 		}
 	}
 	

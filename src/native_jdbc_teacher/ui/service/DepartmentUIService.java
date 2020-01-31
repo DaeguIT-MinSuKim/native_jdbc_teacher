@@ -47,17 +47,8 @@ public class DepartmentUIService {
 		return null;
 	}
 	
-	public void addDepartment(Department newDept) {
-		try {
-			deptDao.insertDepartment(con, newDept);
-		} catch (SQLException e) {
-			if (e.getErrorCode() == 1062) {
-				JOptionPane.showMessageDialog(null, "부서번호가 중복");
-				System.err.println(e.getMessage());
-				return;
-			}
-			e.printStackTrace();
-		}
+	public void addDepartment(Department newDept) throws SQLException {
+		deptDao.insertDepartment(con, newDept);
 	}
 }
 
