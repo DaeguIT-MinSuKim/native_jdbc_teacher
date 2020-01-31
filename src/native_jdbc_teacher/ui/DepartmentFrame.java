@@ -98,16 +98,35 @@ public class DepartmentFrame extends JFrame implements ActionListener {
 			btnCancelActionPerformed(e);
 		}
 		if (e.getSource() == btnAdd) {
-			btnAddActionPerformed(e);
+			if (e.getActionCommand().contentEquals("추가")) {
+				btnAddActionPerformed(e);
+			}else {
+				btnUpdateActionPerformed(e);
+			}
 		}
 	}
 	
+	private void btnUpdateActionPerformed(ActionEvent e) {
+		Department newDept = pDepartment.getItem();
+		try {
+			service.modifyDepartment(newDept);
+			pList.updateRow(newDept, pList.getSelectedRowIdx());
+			btnAdd.setText("추가");
+			pDepartment.clearTf();
+			JOptionPane.showMessageDialog(null, "부서가 수정되었습니다.");
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		
+	}
+
 	protected void btnAddActionPerformed(ActionEvent e) {
 		try {
 			Department newDept = pDepartment.getItem();
 			service.addDepartment(newDept);
 			pList.addItem(newDept);
 			pDepartment.clearTf();
+			JOptionPane.showMessageDialog(null, "부서가 추가되었습니다.");
 		}catch(Exception e1) {
 			SQLException e2 = (SQLException) e1;
 			if (e2.getErrorCode() == 1062) {
@@ -145,10 +164,19 @@ public class DepartmentFrame extends JFrame implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (e.getActionCommand().equals("수정")) {
-				JOptionPane.showMessageDialog(null, "수정");
+				Department upDept = pList.getSelectedItem();
+				pDepartment.setItem(upDept);
+				btnAdd.setText("수정");
 			}
 			if (e.getActionCommand().equals("삭제")) {
-				JOptionPane.showMessageDialog(null, "삭제");
+				Department delDept = pList.getSelectedItem();
+				try {
+					service.removeDepartment(delDept);
+					pList.removeRow();
+					JOptionPane.showMessageDialog(null, "삭제되었습니다.");
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
 			}
 			if (e.getActionCommand().contentEquals("소속 사원")) {
 				Department selectedDept = pList.getSelectedItem(); //선택한 부서정보

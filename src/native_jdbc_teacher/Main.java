@@ -27,9 +27,10 @@ public class Main {
 			
 			DepartmentDao dao = DepartmentDaoImpl.getInstance();
 			//추가할 부서정보
-			Department newDept = new Department(5, "마케팅", 10);
-			dao.insertDepartment(con, newDept);
-			
+			Department newDept = new Department(6, "지원", 60);
+//			dao.insertDepartment(con, newDept);
+//			dao.updateDepartment(con, newDept);
+			dao.deleteDepartment(con, newDept);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());

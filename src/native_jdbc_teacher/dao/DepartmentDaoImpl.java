@@ -56,14 +56,28 @@ public class DepartmentDaoImpl implements DepartmentDao {
 
 	@Override
 	public int updateDepartment(Connection con, Department department) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+		String sql = "update department set deptname=?, floor = ? where deptno = ?";
+		int res = -1;
+		try(PreparedStatement pstmt = con.prepareStatement(sql)){
+			pstmt.setString(1, department.getDeptName());
+			pstmt.setInt(2, department.getFloor());
+			pstmt.setInt(3, department.getDeptNo());
+			System.out.println(pstmt);
+			res = pstmt.executeUpdate();
+		}
+		return res;
 	}
 
 	@Override
 	public int deleteDepartment(Connection con, Department department) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+		String sql = "delete from department where deptno = ?";
+		int res = -1;
+		try(PreparedStatement pstmt = con.prepareStatement(sql)){
+			pstmt.setInt(1, department.getDeptNo());
+			System.out.println(pstmt);
+			res = pstmt.executeUpdate();
+		}
+		return res;
 	}
 
 }

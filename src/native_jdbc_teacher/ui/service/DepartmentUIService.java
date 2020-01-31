@@ -50,6 +50,14 @@ public class DepartmentUIService {
 	public void addDepartment(Department newDept) throws SQLException {
 		deptDao.insertDepartment(con, newDept);
 	}
+	
+	public void modifyDepartment(Department dept) throws SQLException{
+		deptDao.updateDepartment(con, dept);
+	}
+	
+	public void removeDepartment(Department dept) throws SQLException{
+		deptDao.deleteDepartment(con, dept);
+	}
 }
 
 
