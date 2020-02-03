@@ -12,13 +12,13 @@ import javax.swing.JOptionPane;
 
 import native_jdbc_teacher.ds.C3P0DataSource;
 import native_jdbc_teacher.ds.DBCPDataSource;
-import native_jdbc_teacher.ds.Hikari_DataSource2;
+import native_jdbc_teacher.ds.MySqlDataSource;
 import native_jdbc_teacher.dto.Department;
 
 public class DepartmentMain {
 
 	public static void main(String[] args) {
-		try (Connection con = Hikari_DataSource2.getConnection()){
+		try (Connection con = MySqlDataSource.getConnection()){
 			selectDepartment(con);
 			insertDepartment(con);
 			updateDepartment(con);

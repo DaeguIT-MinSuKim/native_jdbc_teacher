@@ -13,7 +13,7 @@ import native_jdbc_teacher.dao.EmployeeDaoImpl;
 import native_jdbc_teacher.ds.C3P0DataSource;
 import native_jdbc_teacher.ds.DBCPDataSource;
 import native_jdbc_teacher.ds.Hikari_DataSource;
-import native_jdbc_teacher.ds.Hikari_DataSource2;
+import native_jdbc_teacher.ds.MySqlDataSource;
 import native_jdbc_teacher.dto.Department;
 import native_jdbc_teacher.dto.Employee;
 import native_jdbc_teacher.ui.DlgEmployee;
@@ -22,7 +22,7 @@ public class Main {
 
 	public static void main(String[] args) throws SQLException {
 		
-		try (Connection con = Hikari_DataSource2.getConnection()){
+		try (Connection con = MySqlDataSource.getConnection()){
 //			소속부서사원검색테스트(con);
 			
 			DepartmentDao dao = DepartmentDaoImpl.getInstance();
@@ -78,7 +78,7 @@ public class Main {
 			e.printStackTrace();
 		}
 		
-		try (Connection con = Hikari_DataSource2.getConnection()){
+		try (Connection con = MySqlDataSource.getConnection()){
 			System.out.println(con);
 		} catch (SQLException e) {
 			e.printStackTrace();
