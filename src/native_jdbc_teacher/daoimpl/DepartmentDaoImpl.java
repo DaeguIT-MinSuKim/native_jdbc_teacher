@@ -1,4 +1,4 @@
-package native_jdbc_teacher.dao;
+package native_jdbc_teacher.daoimpl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,6 +10,7 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import native_jdbc_teacher.dao.DepartmentDao;
 import native_jdbc_teacher.dto.Department;
 
 public class DepartmentDaoImpl implements DepartmentDao {
@@ -85,4 +86,29 @@ public class DepartmentDaoImpl implements DepartmentDao {
 		return res;
 	}
 
+	@Override
+	public Department selectDepartmentByNo(Connection con, int dno) throws SQLException {
+		String sql = "select deptno, deptname, floor from department where deptno=?";
+		try(PreparedStatement pstmt = con.prepareStatement(sql);){
+			pstmt.setInt(1, dno);
+			logger.trace(pstmt);
+			try(ResultSet rs = pstmt.executeQuery()){
+				if (rs.next()) {
+					return getDepartment(rs);
+				}
+			}
+		}
+		return null;
+	}
+
 }
+
+
+
+
+
+
+
+
+
+

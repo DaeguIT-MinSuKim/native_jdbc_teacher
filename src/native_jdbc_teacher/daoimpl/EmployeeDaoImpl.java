@@ -1,4 +1,4 @@
-package native_jdbc_teacher.dao;
+package native_jdbc_teacher.daoimpl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import native_jdbc_teacher.dao.EmployeeDao;
 import native_jdbc_teacher.dto.Department;
 import native_jdbc_teacher.dto.Employee;
 

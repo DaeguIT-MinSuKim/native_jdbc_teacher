@@ -20,8 +20,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="3" language="java" name="native_jdbc_teacher.dao.DepartmentDaoImpl" project="native_jdbc_teacher" 
-    file="/native_jdbc_teacher/src/native_jdbc_teacher/dao/DepartmentDaoImpl.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="3" language="java" name="native_jdbc_teacher.daoimpl.DepartmentDaoImpl" project="native_jdbc_teacher" 
+    file="/native_jdbc_teacher/src/native_jdbc_teacher/daoimpl/DepartmentDaoImpl.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1187" y="134"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -38,8 +39,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="5" language="java" name="native_jdbc_teacher.dao.EmployeeDaoImpl" project="native_jdbc_teacher" 
-    file="/native_jdbc_teacher/src/native_jdbc_teacher/dao/EmployeeDaoImpl.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="5" language="java" name="native_jdbc_teacher.daoimpl.EmployeeDaoImpl" project="native_jdbc_teacher" 
+    file="/native_jdbc_teacher/src/native_jdbc_teacher/daoimpl/EmployeeDaoImpl.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1222" y="566"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -48,41 +50,57 @@
     </display>  
   </class>  
   <association id="6">    
-    <end type="SOURCE" refId="5" navigable="false">      
-      <attribute id="7" name="instance"/>      
-      <multiplicity id="8" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="5" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="9">    
     <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="10" name="deptDao"/>      
-      <multiplicity id="11" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="2" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="12">    
-    <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="13" name="empDao"/>      
-      <multiplicity id="14" minimum="0" maximum="1"/>    
+      <attribute id="7" name="empDao">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="8" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="4" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <realization id="15">    
+  <association id="9">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="10" name="deptDao">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="11" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="12">    
     <end type="SOURCE" refId="3"/>    
     <end type="TARGET" refId="2"/>  
   </realization>  
+  <association id="13">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="14" name="instance">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="15" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
   <realization id="16">    
     <end type="SOURCE" refId="5"/>    
     <end type="TARGET" refId="4"/>  
   </realization>  
   <association id="17">    
     <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="18" name="instance"/>      
-      <multiplicity id="19" minimum="0" maximum="1"/>    
+      <attribute id="18" name="instance">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="19" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="3" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  

@@ -12,6 +12,8 @@ select e.empno, e.empname , e.title , m.empname as manager_name , m.empno as man
  
 
 select * from department d ;
+
+
 insert into department values(5, '마케팅', 10);
 
 insert into department values(5, '마케팅', 0);

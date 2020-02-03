@@ -1,7 +1,5 @@
 package native_jdbc_teacher.dao;
 
-import static org.junit.Assert.fail;
-
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
@@ -17,7 +15,7 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
-
+import native_jdbc_teacher.daoimpl.DepartmentDaoImpl;
 import native_jdbc_teacher.ds.MySqlDataSource;
 import native_jdbc_teacher.dto.Department;
 
@@ -63,25 +61,38 @@ public class DepartmentDaoTest {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Test
+	public void test02InsertDepartment() throws SQLException {
+		logger.debug("test03InsertDepartment()");
+		Department department = new Department(5, "마케팅", 4);
+		int res = dao.insertDepartment(con, department);
+		Assert.assertEquals(1, res);
+	}
+
+	@Test
+	public void test03UpdateDepartment() throws SQLException {
+		logger.debug("test03UpdateDepartment()");
+		Department department = new Department(5, "마케팅3", 41);
+		int res = dao.updateDepartment(con, department);
+		Assert.assertEquals(1, res);
+	}
+
+	@Test
+	public void test04DeleteDepartment() throws SQLException {
+		logger.debug("test04DeleteDepartment()");
+		Department department = new Department(5, "마케팅3", 41);
+		int res = dao.deleteDepartment(con, department);
+		Assert.assertEquals(1, res);
+	}
+
+	@Test
+	public void test05SelectDepartmentByNo() throws SQLException {
+		logger.debug("test05SelectDepartmentByNo()");
+		Department department = dao.selectDepartmentByNo(con, 1);
+		Assert.assertNotNull(department);
+		logger.trace(department);
 		
 	}
-
-	@Test
-	public void test02InsertDepartment() {
-		logger.debug("testInsertDepartment()");
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void test03UpdateDepartment() {
-		logger.debug("testUpdateDepartment()");
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void test04DeleteDepartment() {
-		logger.debug("testDeleteDepartment()");
-		fail("Not yet implemented");
-	}
-
 }
