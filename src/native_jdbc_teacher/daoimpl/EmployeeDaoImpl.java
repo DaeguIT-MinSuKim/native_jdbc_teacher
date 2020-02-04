@@ -7,11 +7,16 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import native_jdbc_teacher.dao.EmployeeDao;
 import native_jdbc_teacher.dto.Department;
 import native_jdbc_teacher.dto.Employee;
 
 public class EmployeeDaoImpl implements EmployeeDao {
+	private static Logger logger = LogManager.getLogger();
+	
 	private static final EmployeeDaoImpl instance = new EmployeeDaoImpl();
 
 	private EmployeeDaoImpl() {}
@@ -21,8 +26,19 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	}
 
 	@Override
-	public Employee selectEmployeeByDno(Connection con, Department dept) throws SQLException {
-		// TODO Auto-generated method stub
+	public Employee selectEmployeeByEmpNo(Connection con, Employee emp) {
+		String sql = "select empno, empname, title, manager, salary, dno from employee where empno=?";
+		try(PreparedStatement pstmt = con.prepareStatement(sql)){
+			pstmt.setInt(1, emp.getEmpNo());
+			logger.trace(pstmt);
+			try(ResultSet rs = pstmt.executeQuery()){
+				if (rs.next()) {
+					return getEmployee(rs);
+				}
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
 		return null;
 	}
 	
@@ -63,6 +79,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		List<Employee> list = new ArrayList<>();
 		try(PreparedStatement pstmt = con.prepareStatement(sql);
 				ResultSet rs = pstmt.executeQuery()){
+			logger.trace(pstmt);
 			while(rs.next()) {
 				list.add(getEmployee(rs));
 			}
@@ -79,6 +96,24 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		Department dept = new Department();
 		dept.setDeptNo(rs.getInt("dno"));
 		return new Employee(empNo, empName, title, manager, salary, dept);
+	}
+
+	@Override
+	public int deleteEmployee(Connection con, Employee employee) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int insertEmployee(Connection con, Employee employee) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int updateEmployee(Connection con, Employee employee) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 
