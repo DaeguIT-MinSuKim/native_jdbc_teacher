@@ -27,13 +27,13 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
 	@Override
 	public Employee selectEmployeeByEmpNo(Connection con, Employee emp) {
-		String sql = "select empno, empname, title, manager, salary, dno from employee where empno=?";
+		String sql = "select empno, empname, title, manager, salary, dno, pic from employee where empno=?";
 		try(PreparedStatement pstmt = con.prepareStatement(sql)){
 			pstmt.setInt(1, emp.getEmpNo());
 			logger.trace(pstmt);
 			try(ResultSet rs = pstmt.executeQuery()){
 				if (rs.next()) {
-					return getEmployee(rs);
+					return getEmployee(rs, true);
 				}
 			}
 		} catch (SQLException e) {
@@ -81,13 +81,13 @@ public class EmployeeDaoImpl implements EmployeeDao {
 				ResultSet rs = pstmt.executeQuery()){
 			logger.trace(pstmt);
 			while(rs.next()) {
-				list.add(getEmployee(rs));
+				list.add(getEmployee(rs, false));
 			}
 		}
 		return list;
 	}
 
-	private Employee getEmployee(ResultSet rs) throws SQLException {
+	private Employee getEmployee(ResultSet rs, boolean isPic) throws SQLException {
 		int empNo = rs.getInt("empno");
 		String empName = rs.getString("empname");
 		String title = rs.getString("title");
@@ -95,7 +95,11 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		int salary = rs.getInt("salary");
 		Department dept = new Department();
 		dept.setDeptNo(rs.getInt("dno"));
-		return new Employee(empNo, empName, title, manager, salary, dept);
+		Employee employee = new Employee(empNo, empName, title, manager, salary, dept);
+		if (isPic) {
+			employee.setPic(rs.getBytes("pic"));
+		}
+		return employee;
 	}
 
 	@Override
@@ -106,8 +110,31 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
 	@Override
 	public int insertEmployee(Connection con, Employee employee) {
-		// TODO Auto-generated method stub
-		return 0;
+		String sql = null;
+		
+		if (employee.getPic() == null) {
+			sql = "insert into employee(empno, empname, title, manager, salary, dno) "
+					+ "values (?, ?, ?, ?, ?, ?)";
+		}else {
+			sql = "insert into employee values(?, ?, ?, ?, ?, ?, ?)";
+		}
+		
+		logger.debug(sql);
+		try (PreparedStatement pstmt = con.prepareStatement(sql)) {
+	        pstmt.setInt(1, employee.getEmpNo());
+	        pstmt.setString(2, employee.getEmpName());
+	        pstmt.setString(3, employee.getTitle());
+	        pstmt.setInt(4, employee.getManager().getEmpNo());
+	        pstmt.setInt(5, employee.getSalary());
+	        pstmt.setInt(6, employee.getDept().getDeptNo());
+	        if (employee.getPic()!=null) {
+	            pstmt.setBytes(7, employee.getPic());
+	        }
+	        return pstmt.executeUpdate();
+	    } catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+
 	}
 
 	@Override
