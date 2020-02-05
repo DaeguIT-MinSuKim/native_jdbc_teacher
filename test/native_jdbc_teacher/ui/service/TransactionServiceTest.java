@@ -1,7 +1,5 @@
 package native_jdbc_teacher.ui.service;
 
-import java.sql.SQLException;
-
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -62,18 +60,33 @@ public class TransactionServiceTest {
 	}
 
 	@Test
-	public void test04TransAddEmpAndDeptWithConnection_DeptFail() {
+	public void test04TransRemoveEmpAndDept_DeptFail() {
+		
+	}
+	
+	@Test
+	public void test05TransRemoveEmpAndDept_EmployeeFail() {
+		
+	}
+	
+	@Test
+	public void test06TransRemoveEmpAndDept_Success() {
+		
+	}
+	
+	
+	@Test
+	public void test07TransAddEmpAndDeptWithConnection_DeptFail() {
 		LogUtil.prnLog(Thread.currentThread().getStackTrace()[1].getMethodName() + "()");
 		int res = 0;
 		Department dept = new Department(1, "마케팅", 8);// 존재하는 부서
 		Employee emp = new Employee(1005, "이유영", "사원", new Employee(1003), 1500000, dept);
 
 		service.transAddEmpAndDeptWithConnection(emp, dept);
-
 	}
 
 	@Test
-	public void test05TransAddEmpAndDeptWithConnection_EmpFail() {
+	public void test08TransAddEmpAndDeptWithConnection_EmpFail() {
 		LogUtil.prnLog(Thread.currentThread().getStackTrace()[1].getMethodName() + "()");
 		int res = 0;
 		Department dept = new Department(6, "마케팅6", 8);
@@ -84,12 +97,27 @@ public class TransactionServiceTest {
 	}
 
 	@Test
-	public void test06TransAddEmpAndDeptWithConnection_Success() {
+	public void test09TransAddEmpAndDeptWithConnection_Success() {
 		LogUtil.prnLog(Thread.currentThread().getStackTrace()[1].getMethodName() + "()");
 
 		Department dept = new Department(6, "마케팅6", 6);
 		Employee emp = new Employee(1005, "이유영", "사원", new Employee(1003), 1500000, dept);
 
 		service.transAddEmpAndDeptWithConnection(emp, dept);
+	}
+	
+	@Test
+	public void test10TransRemoveEmpAndDeptWithConnection_DeptFail() {
+		
+	}
+	
+	@Test
+	public void test11TransRemoveEmpAndDeptWithConnection_EmployeeFail() {
+		
+	}
+	
+	@Test
+	public void test12TransRemoveEmpAndDeptWithConnection_Success() {
+		
 	}
 }

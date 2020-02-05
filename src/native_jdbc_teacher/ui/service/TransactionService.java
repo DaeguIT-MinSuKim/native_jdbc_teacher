@@ -90,4 +90,14 @@ public class TransactionService {
 		}
 	}
 
+	public int transRemoveEmpAndDept (Employee emp, Department dept) {
+		//1. 사원삭제
+		//2. 부서삭제(사원이 소속된)
+		int res=-1;
+		return res;
+	}
+	
+	public void transRemoveEmpAndDeptWithConnection(Employee emp, Department dept) {
+		
+	}
 }
