@@ -61,24 +61,39 @@ public class TransactionServiceTest {
 
 	@Test
 	public void test04TransRemoveEmpAndDept_DeptFail() {
-		
+		LogUtil.prnLog(Thread.currentThread().getStackTrace()[1].getMethodName() + "()");
+
+		Department dept = new Department(10);// 존재하지않 부서
+		Employee emp = new Employee(1004);
+
+		int res = service.transRemoveEmpAndDept(emp, dept);
+		Assert.assertNotEquals(2, res);
 	}
 	
-	@Test
+	@Test(expected = RuntimeException.class)
 	public void test05TransRemoveEmpAndDept_EmployeeFail() {
-		
+		LogUtil.prnLog(Thread.currentThread().getStackTrace()[1].getMethodName() + "()");
+
+		Department dept = new Department(5);
+		Employee emp = new Employee(9000);
+
+		int res = service.transRemoveEmpAndDept(emp, dept);
+		Assert.assertNotEquals(2, res);
 	}
 	
 	@Test
 	public void test06TransRemoveEmpAndDept_Success() {
-		
+		Department dept = new Department(5);
+		Employee emp = new Employee(1004);
+
+		int res = service.transRemoveEmpAndDept(emp, dept);
+		Assert.assertEquals(2, res);
 	}
 	
 	
 	@Test
 	public void test07TransAddEmpAndDeptWithConnection_DeptFail() {
 		LogUtil.prnLog(Thread.currentThread().getStackTrace()[1].getMethodName() + "()");
-		int res = 0;
 		Department dept = new Department(1, "마케팅", 8);// 존재하는 부서
 		Employee emp = new Employee(1005, "이유영", "사원", new Employee(1003), 1500000, dept);
 
@@ -108,16 +123,32 @@ public class TransactionServiceTest {
 	
 	@Test
 	public void test10TransRemoveEmpAndDeptWithConnection_DeptFail() {
+		LogUtil.prnLog(Thread.currentThread().getStackTrace()[1].getMethodName() + "()");
+
+		Department dept = new Department(10);// 존재하지않 부서
+		Employee emp = new Employee(1005);
+
+		service.transRemoveEmpAndDeptWithConnection(emp, dept);
 		
 	}
 	
 	@Test
 	public void test11TransRemoveEmpAndDeptWithConnection_EmployeeFail() {
-		
+		LogUtil.prnLog(Thread.currentThread().getStackTrace()[1].getMethodName() + "()");
+
+		Department dept = new Department(6);
+		Employee emp = new Employee(9000);
+
+		service.transRemoveEmpAndDeptWithConnection(emp, dept);
 	}
 	
 	@Test
 	public void test12TransRemoveEmpAndDeptWithConnection_Success() {
-		
+		LogUtil.prnLog(Thread.currentThread().getStackTrace()[1].getMethodName() + "()");
+
+		Department dept = new Department(6);
+		Employee emp = new Employee(1005);
+
+		service.transRemoveEmpAndDeptWithConnection(emp, dept);
 	}
 }
