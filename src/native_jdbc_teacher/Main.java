@@ -39,7 +39,7 @@ public class Main {
 
 	}
 
-	private static void 소속부서사원검색테스트(Connection con) throws SQLException {
+	public static void 소속부서사원검색테스트(Connection con) throws SQLException {
 		EmployeeDao dao = EmployeeDaoImpl.getInstance();
 		Department dept = new Department();
 		dept.setDeptNo(2);
@@ -55,7 +55,7 @@ public class Main {
 		dialog.setVisible(true);
 	}
 
-	private static void c3p0_ds() {
+	public static void c3p0_ds() {
 		try (Connection con = C3P0DataSource.getConnection();){
 			System.out.println(con);
 		} catch (SQLException e) {
@@ -63,7 +63,7 @@ public class Main {
 		}
 	}
 
-	private static void dbcp_ds() {
+	public static void dbcp_ds() {
 		try (Connection con = DBCPDataSource.getConnection();){
 			System.out.println(con);
 		} catch (SQLException e) {
@@ -71,7 +71,7 @@ public class Main {
 		}
 	}
 
-	private static void hikari_ds() {
+	public static void hikari_ds() {
 		try (Connection con = Hikari_DataSource.getConnection();){
 			System.out.println(con);
 		} catch (SQLException e) {
