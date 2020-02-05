@@ -65,31 +65,29 @@ public class TransactionService {
 		return res;
 	}
 	
-	public int transAddEmpAndDeptWithConnection(Employee emp, Department dept) {
+	public void transAddEmpAndDeptWithConnection(Employee emp, Department dept) {
 		DepartmentDao deptDao = DepartmentDaoImpl.getInstance();
 		EmployeeDao empDao = EmployeeDaoImpl.getInstance();
-		int res = 0;
 		Connection con = null;
+		
 		try {
 			con = MySqlDataSource.getConnection();
 			con.setAutoCommit(false);
-			res = deptDao.insertDepartment(con, dept);
-			res += empDao.insertEmployee(con, emp);
-			if (res == 2) {
-				con.commit();
-				con.setAutoCommit(true);
-				LogUtil.prnLog("result " + res + " commit()");
-			}else {
-				throw new SQLException();
-			}
-		} catch (SQLException e) {
+			deptDao.insertDepartment(con, dept);
+			empDao.insertEmployee(con, emp);
+			con.commit();
+			con.setAutoCommit(true);
+			LogUtil.prnLog("result commit()");
+		} catch (RuntimeException e) {
 			try{
 				con.rollback();
 				con.setAutoCommit(true);
+				throw e;
 			}catch(Exception e1) {}
-			LogUtil.prnLog("result " + res + " rollback()");
+			LogUtil.prnLog("result rollback()");
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
-		return res;
 	}
 
 }

@@ -108,7 +108,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		}else {
 			sql = "insert into employee values(?, ?, ?, ?, ?, ?, ?)";
 		}
-		
+		int res = 0;
 		LogUtil.prnLog(sql);
 		try (PreparedStatement pstmt = con.prepareStatement(sql)) {
 	        pstmt.setInt(1, employee.getEmpNo());
@@ -121,11 +121,12 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	        if (employee.getPic()!=null) {
 	            pstmt.setBytes(7, employee.getPic());
 	        }
-	        return pstmt.executeUpdate();
+	        res =  pstmt.executeUpdate();
+	        
 	    } catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
-
+		return res;
 	}
 
 	@Override
