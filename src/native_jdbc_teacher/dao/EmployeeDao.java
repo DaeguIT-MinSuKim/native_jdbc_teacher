@@ -20,4 +20,12 @@ public interface EmployeeDao {
 
 	int updateEmployee(Connection con, Employee employee);
 
+	/* procedure call*/
+	List<Employee> procedureEmployeeByDno(Connection con, int dno)throws SQLException;
 }
+
+
+
+
+
+
